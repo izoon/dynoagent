@@ -2,7 +2,6 @@ import asyncio
 from typing import List, Dict, Set, Tuple, Any, Optional, Callable, Union
 import networkx as nx
 from dyno_agent import DynoAgent
-from pdf_processing_agent import PDFProcessingDecisionAgent
 from dyno_agent_with_tools import DynoAgentWithTools
 
 class Team:
@@ -308,7 +307,8 @@ class Team:
 if __name__ == "__main__":
     import asyncio
     from dyno_agent import DynoAgent
-    from pdf_processing_agent import PDFProcessingDecisionAgent, ImagePreprocessor, OCRPreprocessor
+    # Comment out non-existent imports
+    # from .pdf_processing_agent import PDFProcessingDecisionAgent, ImagePreprocessor, OCRPreprocessor
     
     # Create agents
     ocr_agent = DynoAgent(
@@ -332,16 +332,17 @@ if __name__ == "__main__":
         goal="Index documents in a database"
     )
     
-    pdf_agent = PDFProcessingDecisionAgent(
-        name="PDFAgent",
-        skills=["PDF Processing", "Format Detection"],
-        goal="Process PDF documents"
-    )
+    # Removed PDFProcessingDecisionAgent
+    # pdf_agent = PDFProcessingDecisionAgent(
+    #    name="PDFAgent",
+    #    skills=["PDF Processing", "Format Detection"],
+    #    goal="Process PDF documents"
+    # )
     
     # Create a team with explicit dependencies
     team = Team(
         name="DocumentProcessingTeam",
-        agents=[ocr_agent, analysis_agent, indexing_agent, pdf_agent],
+        agents=[ocr_agent, analysis_agent, indexing_agent],  # removed pdf_agent
         explicit_dependencies={
             "AnalysisAgent": ["OCRAgent"],
             "IndexingAgent": ["AnalysisAgent"]
