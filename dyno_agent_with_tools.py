@@ -1,6 +1,6 @@
 from typing import List, Dict, Any, Optional, Union, Callable
 import os
-from dyno_agent import DynoAgent
+from .dyno_agent import DynoAgent
 
 # Comment out external dependencies for now
 # from dyno_llamaindex import DynoDataLoader
@@ -15,14 +15,21 @@ class DynoAgentWithTools(DynoAgent):
     """Extended DynoAgent with LlamaIndex data loading and querying tools."""
     
     def __init__(self, name, role, skills, goal, 
+                 enable_learning=False, learning_threshold=10,
+                 accuracy_boost_factor=1.5, use_rl_decision_agent=True,
+                 input_dependencies=None, tools_dataloaders=None,
                  llm_provider=None, temperature=0.7, max_tokens=1500):
         """Initialize DynoAgentWithTools with LlamaIndex integration."""
-        super().__init__(name, role, skills, goal, 
-                        llm_provider=llm_provider, 
-                        temperature=temperature, 
-                        max_tokens=max_tokens)
-        # Placeholder for now
-        self.tools_dataloaders = {}
+        super().__init__(name, role, skills, goal,
+                        enable_learning=enable_learning,
+                        learning_threshold=learning_threshold,
+                        accuracy_boost_factor=accuracy_boost_factor,
+                        use_rl_decision_agent=use_rl_decision_agent,
+                        input_dependencies=input_dependencies,
+                        tools_dataloaders=tools_dataloaders)
+        self.llm_provider = llm_provider
+        self.temperature = temperature
+        self.max_tokens = max_tokens
         
     # Simplified implementation of methods
     def perform_task(self, task, context=None):
