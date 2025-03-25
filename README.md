@@ -26,6 +26,15 @@ DynoAgent is a powerful Python framework for building and orchestrating intellig
 pip install dynoagent
 ```
 
+### Installation from GitHub
+```bash
+# Install directly from GitHub
+pip install git+https://github.com/izoon/dynoagent.git
+
+# Install with development dependencies from GitHub
+pip install git+https://github.com/izoon/dynoagent.git#egg=dynoagent[dev]
+```
+
 ### Development Installation
 ```bash
 # Clone the repository
