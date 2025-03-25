@@ -74,7 +74,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📬 Contact
 
 - GitHub Issues: [https://github.com/izoon/dynoagent/issues](https://github.com/izoon/dynoagent/issues)
-- Author: Vahid Salami (vahid.salami@ai)
+- Author: Vahid Salami (vahid.salami@izoon.ai)
 
 ## 🛠️ Advanced Features
 
