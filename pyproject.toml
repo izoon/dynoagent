@@ -10,10 +10,10 @@ readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
 authors = [
-    { name = "Vahid Salami", email = "vahid.salami@izoon.com" }
+    { name = "Vahid Salami", email = "vahid.salami@ai" }
 ]
 maintainers = [
-    { name = "Vahid Salami", email = "vahid.salami@izoon.com" }
+    { name = "Vahid Salami", email = "vahid.salami@ai" }
 ]
 keywords = ["ai", "agents", "team", "orchestration", "automation"]
 classifiers = [
