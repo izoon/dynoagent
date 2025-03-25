@@ -6,121 +6,70 @@
 [![Tests](https://github.com/izoon/dynoagent/actions/workflows/tests.yml/badge.svg)](https://github.com/izoon/dynoagent/actions/workflows/tests.yml)
 [![Coverage](https://img.shields.io/badge/coverage-78%25-green.svg)](https://github.com/izoon/dynoagent/actions/workflows/tests.yml)
 
-DynoAgent is a powerful Python framework for building and orchestrating intelligent agents. It provides a flexible architecture for creating, managing, and coordinating AI agents that can work individually or as a team to solve complex tasks.
+A Python package for managing and orchestrating AI agents in a team environment.
 
-## 🌟 Key Features
+## Features
 
-- **Dynamic Role-Based Agents**: Create agents with specific roles, skills, and goals
-- **Team Orchestration**: Coordinate multiple agents with automatic dependency management
-- **Parallel & Sequential Execution**: Smart execution strategies based on task dependencies
-- **Built-in Task Analysis**: Automatic complexity assessment and resource optimization
-- **Extensible Tools System**: Easy integration of custom tools and data loaders
-- **Dependency Graph Visualization**: Visual representation of agent relationships
-- **Comprehensive Test Coverage**: 78% overall coverage with 100% coverage for core components
-- **CLI Interface**: Command-line tools for agent creation and task execution
+- Dynamic role-based agent framework
+- Team-based task execution
+- Flexible agent communication patterns
+- Built-in task validation and error handling
+- Support for async operations
 
-## 📦 Installation
+## Installation
 
-### Basic Installation
+### From PyPI
+
 ```bash
 pip install dynoagent
 ```
 
-### Installation from GitHub
+### From GitHub
+
 ```bash
-# Install directly from GitHub
+# Basic installation
 pip install git+https://github.com/izoon/dynoagent.git
 
-# Install with development dependencies from GitHub
+# With development dependencies
 pip install git+https://github.com/izoon/dynoagent.git#egg=dynoagent[dev]
 ```
 
-### Development Installation
-```bash
-# Clone the repository
-git clone https://github.com/izoon/dynoagent.git
-cd dynoagent
-
-# Create and activate virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install with development dependencies
-pip install -e ".[dev]"
-```
-
-## 🚀 Quick Start
-
-### Creating a Simple Agent
+## Quick Start
 
 ```python
-from dynoagent import DynoAgent
+from dynoagent import Agent, Team, Task
 
-# Create a basic agent
-agent = DynoAgent(
-    name="research_agent",
-    role="researcher",
-    skills=["web_search", "data_analysis"],
-    goal="research_topic"
-)
+# Create agents
+researcher = Agent("researcher", "Research and analyze data")
+writer = Agent("writer", "Write reports and documentation")
 
-# Execute a task
-result = agent.perform_task("Research AI trends in 2024")
+# Create a team
+team = Team([researcher, writer])
+
+# Define tasks
+research_task = Task("Research market trends", researcher)
+writing_task = Task("Write report", writer)
+
+# Execute tasks
+team.execute_tasks([research_task, writing_task])
 ```
 
-### Building a Team of Agents
+## Documentation
 
-```python
-from dynoagent import DynoAgent, Team
+For detailed documentation, please visit our [GitHub repository](https://github.com/izoon/dynoagent#readme).
 
-# Create specialized agents
-data_agent = DynoAgent(
-    name="DataAgent",
-    role="data_processor",
-    skills=["data_cleaning", "feature_extraction"],
-    goal="prepare_data"
-)
+## Contributing
 
-analysis_agent = DynoAgent(
-    name="AnalysisAgent",
-    role="analyzer",
-    skills=["statistical_analysis", "visualization"],
-    goal="analyze_data"
-)
+We welcome contributions! Please feel free to submit a Pull Request.
 
-# Create a team with dependencies
-team = Team(
-    name="DataAnalysisTeam",
-    agents=[data_agent, analysis_agent],
-    explicit_dependencies={
-        "AnalysisAgent": ["DataAgent"]
-    }
-)
+## License
 
-# Execute the team
-results = team.execute_optimal({"data_source": "example.csv"})
-```
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-### Using Agents with Tools
+## Contact
 
-```python
-from dynoagent import DynoAgentWithTools
-
-# Create an agent with custom tools
-agent = DynoAgentWithTools(
-    name="document_processor",
-    role="processor",
-    skills=["text_extraction", "indexing"],
-    goal="process_documents",
-    llm_provider="openai",  # Optional LLM provider
-    temperature=0.7,        # Optional temperature setting
-    max_tokens=1500        # Optional max tokens setting
-)
-
-# Process documents
-results = agent.load_data("pdf", "document.pdf")
-agent.index_documents(results)
-```
+- GitHub Issues: [https://github.com/izoon/dynoagent/issues](https://github.com/izoon/dynoagent/issues)
+- Author: Vahid Salami (vahid.salami@izoon.com)
 
 ## 🛠️ Advanced Features
 
