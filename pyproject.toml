@@ -40,7 +40,7 @@ dev = [
 
 [tool.setuptools]
 packages = ["dynoagent"]
-package-dir = {"" = "dynoagent"}
+package-dir = {"" = "."}
 
 [tool.black]
 line-length = 88
