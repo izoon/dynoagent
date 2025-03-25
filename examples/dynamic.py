@@ -8,55 +8,56 @@ This example demonstrates how to:
 
 from dynoagent import DynoAgent, Team
 
+
 def main():
     # Create agents for a complex data pipeline
     data_ingestion = DynoAgent(
         name="DataIngestion",
         role="Ingester",
         skills=["Data Loading", "Schema Validation"],
-        goal="Ingest and validate raw data"
+        goal="Ingest and validate raw data",
     )
 
     feature_extraction = DynoAgent(
         name="FeatureExtraction",
         role="Extractor",
         skills=["Feature Engineering", "Dimensionality Reduction"],
-        goal="Extract relevant features from data"
+        goal="Extract relevant features from data",
     )
 
     model_training = DynoAgent(
         name="ModelTraining",
         role="Trainer",
         skills=["Model Selection", "Hyperparameter Tuning"],
-        goal="Train and optimize ML models"
+        goal="Train and optimize ML models",
     )
 
     model_evaluation = DynoAgent(
         name="ModelEvaluation",
         role="Evaluator",
         skills=["Performance Metrics", "Cross Validation"],
-        goal="Evaluate model performance"
+        goal="Evaluate model performance",
     )
 
     error_analysis = DynoAgent(
         name="ErrorAnalysis",
         role="Analyzer",
         skills=["Error Detection", "Bias Analysis"],
-        goal="Analyze model errors and biases"
+        goal="Analyze model errors and biases",
     )
 
     model_deployment = DynoAgent(
         name="ModelDeployment",
         role="Deployer",
         skills=["Model Serving", "API Integration"],
-        goal="Deploy models to production"
+        goal="Deploy models to production",
     )
 
     monitoring = DynoAgent(
         name="Monitoring",
         role="Monitor",
         skills=["Performance Monitoring", "Drift Detection"],
-        goal="Monitor model performance and data drift"
+        goal="Monitor model performance and data drift",
     )
 
     # Create a team with complex dependencies
@@ -76,7 +77,9 @@ def main():
     ml_team.add_agent(error_analysis, dependencies=["ModelEvaluation"])
 
     # Model deployment depends on both evaluation and error analysis
-    ml_team.add_agent(model_deployment, dependencies=["ModelEvaluation", "ErrorAnalysis"])
+    ml_team.add_agent(
+        model_deployment, dependencies=["ModelEvaluation", "ErrorAnalysis"]
+    )
 
     # Monitoring depends on deployment
     ml_team.add_agent(monitoring, dependencies=["ModelDeployment"])
@@ -95,6 +98,7 @@ def main():
     print("\nExecution Plan:")
     for i, level in enumerate(ml_team.execution_plan):
         print(f"Level {i}: {', '.join(level)}")
+
 
 if __name__ == "__main__":
     main()

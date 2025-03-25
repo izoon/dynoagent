@@ -3,16 +3,15 @@ Tests for DynoAgentWithTools class.
 """
 
 import pytest
+
 from dynoagent.dyno_agent_with_tools import DynoAgentWithTools
+
 
 def test_initialization():
     """Test DynoAgentWithTools initialization."""
     # Test basic initialization
     agent = DynoAgentWithTools(
-        name="TestAgent",
-        role="Tester",
-        skills=["Testing"],
-        goal="Test initialization"
+        name="TestAgent", role="Tester", skills=["Testing"], goal="Test initialization"
     )
     assert agent.name == "TestAgent"
     assert agent.role == "Tester"
@@ -30,11 +29,12 @@ def test_initialization():
         goal="Custom goal",
         llm_provider="test_provider",
         temperature=0.5,
-        max_tokens=2000
+        max_tokens=2000,
     )
     assert agent.llm_provider == "test_provider"
     assert agent.temperature == 0.5
     assert agent.max_tokens == 2000
+
 
 def test_perform_task():
     """Test task performance with context."""
@@ -42,9 +42,9 @@ def test_perform_task():
         name="TaskAgent",
         role="TaskExecutor",
         skills=["TaskExecution"],
-        goal="Execute tasks"
+        goal="Execute tasks",
     )
-    
+
     # Test task execution with context
     result = agent.perform_task("Test task", {"context": "test"})
     assert isinstance(result, dict)
@@ -53,13 +53,14 @@ def test_perform_task():
     assert "result" in result
     assert "metrics" in result
 
+
 def test_data_operations():
     """Test data loading and indexing operations."""
     agent = DynoAgentWithTools(
         name="DataAgent",
         role="DataHandler",
         skills=["DataProcessing"],
-        goal="Handle data"
+        goal="Handle data",
     )
 
     # Test load_data
@@ -86,17 +87,19 @@ def test_data_operations():
     assert isinstance(summaries, list)
     assert len(summaries) == 0
 
+
 def test_register_data_tools():
     """Test data tool registration."""
     agent = DynoAgentWithTools(
         name="ToolAgent",
         role="ToolHandler",
         skills=["ToolManagement"],
-        goal="Manage tools"
+        goal="Manage tools",
     )
 
     # Test _register_data_tools
     agent._register_data_tools()  # Should not raise error
+
 
 def test_inheritance():
     """Test that DynoAgentWithTools properly inherits from DynoAgent."""
@@ -104,7 +107,7 @@ def test_inheritance():
         name="InheritAgent",
         role="InheritRole",
         skills=["InheritSkill"],
-        goal="Test inheritance"
+        goal="Test inheritance",
     )
 
     # Test inherited methods
@@ -115,9 +118,12 @@ def test_inheritance():
     assert agent.goal == "New goal"
 
     # Test tool registration (inherited)
-    def dummy_tool(x): return x
+    def dummy_tool(x):
+        return x
+
     agent.register_tool("dummy", dummy_tool)
     assert "dummy" in agent.tools_dataloaders
+
 
 def test_edge_cases():
     """Test edge cases and error handling."""
@@ -141,7 +147,7 @@ def test_edge_cases():
             role="role",
             skills=["skill"],
             goal="goal",
-            temperature=-1  # Invalid temperature
+            temperature=-1,  # Invalid temperature
         )
 
     # Test invalid max_tokens
@@ -151,5 +157,5 @@ def test_edge_cases():
             role="role",
             skills=["skill"],
             goal="goal",
-            max_tokens=-1  # Invalid max_tokens
-        ) 
+            max_tokens=-1,  # Invalid max_tokens
+        )

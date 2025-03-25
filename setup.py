@@ -1,7 +1,8 @@
 """
 DynoAgent setup configuration.
 """
-from setuptools import setup, find_packages
+
+from setuptools import find_packages, setup
 
 # Read the contents of README file
 with open("README.md", encoding="utf-8") as f:
@@ -60,4 +61,4 @@ setup(
             "dynoagent=dynoagent.cli:main",
         ],
     },
-) 
+)
