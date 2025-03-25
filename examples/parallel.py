@@ -1,35 +1,66 @@
-import asyncio
-from typing import Dict
-from dynoagent import DynoAgent
+"""
+Example of parallel team execution in DynoAgent.
+This example demonstrates how to:
+1. Create agents with different roles
+2. Form a team with independent tasks that can run in parallel
+3. Execute tasks in parallel where possible
+"""
 
-# Define DynoAgent instances for different workflow steps
-ingest_agent = DynoAgent(name="IngestAgent", role="Extractor", skills=["OCR", "Text Extraction"], goal="Extract text from receipts")
-indexing_agent = DynoAgent(name="IndexingAgent", role="Indexer", skills=["Data Storage", "Vector DB"], goal="Index extracted text into a vector database")
-analysis_agent = DynoAgent(name="AnalysisAgent", role="Analyzer", skills=["Summarization", "Pattern Recognition"], goal="Analyze and categorize receipt data")
-review_agent = DynoAgent(name="ReviewAgent", role="Validator", skills=["Data Validation", "Accuracy Checking"], goal="Review extracted receipt data for correctness")
-verification_agent = DynoAgent(name="VerificationAgent", role="Verifier", skills=["Identity Matching", "Fraud Detection"], goal="Cross-check user identity in the database")
-approval_agent = DynoAgent(name="ApprovalAgent", role="Approver", skills=["Expense Approval", "Financial Decision Making"], goal="Approve or reject expense claims")
+from dynoagent import DynoAgent, Team
 
-# 📝 Define the workflow execution in parallel
-async def process_receipt_parallel(receipt_text: str, user_id: str) -> Dict:
-    """
-    Executes the full receipt processing pipeline using DynoAgent instances in parallel where possible.
-    """
-    extracted_text = await asyncio.to_thread(ingest_agent.perform_task, "Extract receipt text", receipt_text)
-    indexing_task = asyncio.to_thread(indexing_agent.perform_task, "Index extracted text", extracted_text)
-    analysis_task = asyncio.to_thread(analysis_agent.perform_task, "Analyze receipt data", extracted_text)
-    indexed_text, summary = await asyncio.gather(indexing_task, analysis_task)
-    review_task = asyncio.to_thread(review_agent.perform_task, "Review analyzed receipt", summary)
-    verification_task = asyncio.to_thread(verification_agent.perform_task, "Verify user identity", user_id)
-    review_status, verification_status = await asyncio.gather(review_task, verification_task)
-    review_agent.dynamic_role_update(review_status)
-    approval_status = await asyncio.to_thread(approval_agent.perform_task, "Approve expense", verification_status)
+def main():
+    # Create agents for independent data processing tasks
+    image_processor = DynoAgent(
+        name="ImageProcessor",
+        role="Processor",
+        skills=["Image Recognition", "Feature Extraction"],
+        goal="Process and analyze image data"
+    )
 
-    return {
-        "ExtractedText": extracted_text,
-        "IndexedText": indexed_text,
-        "Summary": summary,
-        "ReviewStatus": review_status,
-        "VerificationStatus": verification_status,
-        "ApprovalStatus": approval_status
-    }
+    text_processor = DynoAgent(
+        name="TextProcessor",
+        role="Processor",
+        skills=["NLP", "Text Analysis"],
+        goal="Process and analyze text data"
+    )
+
+    audio_processor = DynoAgent(
+        name="AudioProcessor",
+        role="Processor",
+        skills=["Audio Analysis", "Speech Recognition"],
+        goal="Process and analyze audio data"
+    )
+
+    data_aggregator = DynoAgent(
+        name="DataAggregator",
+        role="Aggregator",
+        skills=["Data Integration", "Multi-modal Fusion"],
+        goal="Aggregate results from all processors"
+    )
+
+    # Create a team with parallel processing capabilities
+    processing_team = Team("MultiModalProcessingTeam", [
+        image_processor,
+        text_processor,
+        audio_processor
+    ])
+
+    # Add aggregator that depends on all processors
+    # This creates a parallel workflow where all processors run independently
+    # and the aggregator waits for all of them to complete
+    processing_team.add_agent(
+        data_aggregator,
+        dependencies=["ImageProcessor", "TextProcessor", "AudioProcessor"]
+    )
+
+    # Execute the workflow in parallel
+    # Processors will run concurrently, then aggregator will run
+    results = processing_team.execute_parallel()
+
+    # Print execution results
+    print("\nParallel Execution Results:")
+    for agent_name, result in results.items():
+        print(f"{agent_name}: {result}")
+
+if __name__ == "__main__":
+    main()

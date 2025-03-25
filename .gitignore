@@ -46,6 +46,10 @@ coverage.xml
 *.cover
 .hypothesis/
 .pytest_cache/
+.coverage
+coverage.xml
+*.cover
+htmlcov/
 
 # Environments
 .env
@@ -55,9 +59,49 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+.python-version
 
 # IDE specific files
 .idea/
 .vscode/
 *.swp
-*.swo 
+*.swo
+*.sublime-workspace
+*.sublime-project
+.project
+.pydevproject
+.settings/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/ 

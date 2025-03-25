@@ -1,56 +1,80 @@
-# DynoAgent Execution Strategy Examples
+# DynoAgent Examples
 
-This directory contains examples of different execution strategies for agent workflows using the DynoAgent framework.
+This directory contains examples demonstrating different ways to use the DynoAgent framework for coordinating multiple agents in a team. Each example showcases a different execution strategy and team configuration.
 
-## Examples
+## Examples Overview
 
-### Sequential Execution (`sequential.py`)
+### 1. Sequential Execution (`sequential.py`)
+Demonstrates how to:
+- Create a data analytics pipeline with sequential dependencies
+- Set up a linear workflow where each agent depends on the previous one
+- Execute tasks in sequential order using `Team.execute_sequential()`
 
-The sequential execution strategy runs each agent one after another in a predefined order. This is the simplest approach and is suitable for workflows where each step depends on the output of the previous step.
-
-```python
-# Example of sequential execution
-extracted_text = ingest_agent.perform_task("Extract receipt text", receipt_text)
-indexed_text = indexing_agent.perform_task("Index extracted text", extracted_text)
-summary = analysis_agent.perform_task("Analyze receipt data", indexed_text)
+Example workflow:
+```
+DataCollector -> DataProcessor -> DataAnalyzer -> ReportGenerator
 ```
 
-### Parallel Execution (`parallel.py`)
+### 2. Parallel Execution (`parallel.py`)
+Demonstrates how to:
+- Create a multi-modal processing pipeline with independent tasks
+- Configure agents that can run concurrently
+- Execute tasks in parallel using `Team.execute_parallel()`
 
-The parallel execution strategy runs independent agents concurrently using asyncio. This approach is more efficient for workflows where some steps can be executed in parallel.
-
-```python
-# Example of parallel execution
-extracted_text = await asyncio.to_thread(ingest_agent.perform_task, "Extract receipt text", receipt_text)
-indexing_task = asyncio.to_thread(indexing_agent.perform_task, "Index extracted text", extracted_text)
-analysis_task = asyncio.to_thread(analysis_agent.perform_task, "Analyze receipt data", extracted_text)
-indexed_text, summary = await asyncio.gather(indexing_task, analysis_task)
+Example workflow:
+```
+ImageProcessor ─┐
+TextProcessor  ─┼─> DataAggregator
+AudioProcessor ─┘
 ```
 
-### Dynamic Execution (`dynamic.py`)
+### 3. Dynamic Execution (`dynamic.py`)
+Demonstrates how to:
+- Create a complex MLOps pipeline with multiple dependencies
+- Configure agents with branching and merging workflows
+- Execute tasks optimally using `Team.execute_optimal()`
 
-The dynamic execution strategy uses a reinforcement learning decision agent to determine the best next step based on the current state of the workflow. This approach is more flexible and can adapt to changing conditions.
-
-```python
-# Example of dynamic execution with RL decision agent
-next_agent = rl_decision_agent.decide_next_agent(current_state, available_agents)
-result = await asyncio.to_thread(next_agent.perform_task, f"Process {next_agent.name} task", current_data)
+Example workflow:
+```
+                           ┌─> ErrorAnalysis ─┐
+DataIngestion -> FeatureExtraction -> ModelTraining -> ModelEvaluation ─┤                 ┌─> Monitoring
+                                                                        └─> ModelDeployment┘
 ```
 
 ## Usage
 
-To run these examples, you need to have the DynoAgent package installed:
-
+1. Install the DynoAgent package:
 ```bash
 pip install dynoagent
 ```
 
-Then, you can run the examples directly:
-
+2. Run any example:
 ```bash
-python sequential.py
-python parallel.py
-python dynamic.py
+python examples/sequential.py
+python examples/parallel.py
+python examples/dynamic.py
 ```
 
-Note that these examples are simplified for demonstration purposes. In a real application, you would likely need to customize them to fit your specific use case. 
+## Key Concepts
+
+1. **Team Creation**: Each example shows how to create a `Team` instance and add agents with appropriate dependencies.
+
+2. **Dependency Management**: The examples demonstrate different ways to structure agent dependencies:
+   - Sequential: Linear dependencies
+   - Parallel: Independent tasks
+   - Dynamic: Complex dependency graphs
+
+3. **Execution Strategies**: Each example uses a different execution strategy:
+   - `execute_sequential()`: Run tasks one after another
+   - `execute_parallel()`: Run independent tasks concurrently
+   - `execute_optimal()`: Automatically determine the best execution order
+
+4. **Error Handling**: The examples include proper error handling and dependency validation.
+
+## Best Practices
+
+1. **Clear Dependencies**: Always explicitly define agent dependencies when adding them to a team.
+2. **Meaningful Names**: Use descriptive names for agents and teams.
+3. **Proper Skills**: Define relevant skills for each agent based on their role.
+4. **Goal Setting**: Set clear, specific goals for each agent.
+5. **Execution Strategy**: Choose the appropriate execution strategy based on your workflow requirements. 

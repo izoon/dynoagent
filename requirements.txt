@@ -1,0 +1,23 @@
+# Core dependencies
+numpy>=1.20.0
+networkx>=2.6.0
+
+# Development dependencies
+pytest>=8.0.0
+pytest-cov>=6.0.0
+pytest-asyncio>=0.26.0
+black>=24.0.0
+flake8>=7.0.0
+isort>=5.13.0
+setuptools>=69.0.0
+wheel>=0.42.0
+setuptools_scm>=8.0.0
+
+# Documentation dependencies
+sphinx>=7.0.0
+sphinx-rtd-theme>=2.0.0
+myst-parser>=2.0.0
+
+# Optional dependencies
+# llama-index>=0.8.0  # Uncomment if using LlamaIndex integration
+# dyno-llamaindex>=0.1.0  # Uncomment if using DynoLlamaIndex integration 
