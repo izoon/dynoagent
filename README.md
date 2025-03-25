@@ -66,7 +66,12 @@ We welcome contributions! Please feel free to submit a Pull Request.
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Contact
+## 🙏 Acknowledgments
+
+- NetworkX team for the graph processing capabilities
+- All our contributors and users
+
+## 📬 Contact
 
 - GitHub Issues: [https://github.com/izoon/dynoagent/issues](https://github.com/izoon/dynoagent/issues)
 - Author: Vahid Salami (vahid.salami@izoon.com)
@@ -138,14 +143,4 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- NetworkX team for the graph processing capabilities
-- All our contributors and users
-
-## 📬 Contact
-
-- GitHub Issues: [https://github.com/izoon/dynoagent/issues](https://github.com/izoon/dynoagent/issues)
-- Email: example@example.com 
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. 
